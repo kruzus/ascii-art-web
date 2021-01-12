@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Projet de NMOYEN</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript">
+            
+            $(document).ready(function() {
+        $("#Ascii").on('click', function() {
+          $.ajax({	  
+            url: "http://localhost:9000/Ascii",
+            method: "GET",
+			data:{machaine:$("#ascii").val(),mode:"Ascii"}, 
+            success: function(data) {
+              $("#Reponce1").html(data);
+			  
+            		},
+					});
+				});
+            });
+        </script>
+	</head>
+	<body>
+        <a href="">ex1: Ascii</a>
+		<input TYPE="text" name="ascii" id="ascii" value = "test"> 
+		<button id="Ascii" type="submit">Ascii</button>
+		<div id="Reponce1"></div>
+        <br>
+</body>
+</html>
