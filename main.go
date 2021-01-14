@@ -29,18 +29,19 @@ func main() {
 		if r.Form["machaine"][0] == "rickroll.png" {
 			openbrowser("https://www.youtube.com/watch?v=xvFZjo5PgG0&ab_channel=RickRoll")
 		}
+
 		//	fmt.Fprintf(w, DrawAscii("Capture.jpg"))
 		fmt.Fprintln(w, DrawAscii(img))
-		fmt.Println(DrawAscii(img))
-		fmt.Println("ok")
+		//fmt.Println(DrawAscii(img))
+		//	fmt.Fprintln(w, "ok")
 	})
 
 	log.Fatal(http.ListenAndServe(":9000", nil))
 
 }
 func DrawAscii(v string) string {
-	//	base := "0ND8OZ$7I?+=~:,.."
-	base := "$"
+	base := "0ND8OZ$7I?+=~:,.."
+	//	base := "$"
 	f, _ := os.Open(v)
 	img, _ := png.Decode(f)
 	bounds := img.Bounds()
@@ -56,7 +57,7 @@ func DrawAscii(v string) string {
 			temp := fmt.Sprintf("%.0f", gray*float64(len(base)+1)/255)
 			index, _ := strconv.Atoi(temp)
 			if index >= len(base) {
-				ascii += " "
+				ascii += "."
 				//fmt.Print(" ")
 			} else {
 				ascii += string(base[index])
