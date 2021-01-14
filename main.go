@@ -39,7 +39,8 @@ func main() {
 
 }
 func DrawAscii(v string) string {
-	base := "0ND8OZ$7I?+=~:,.."
+	//	base := "0ND8OZ$7I?+=~:,.."
+	base := "$"
 	f, _ := os.Open(v)
 	img, _ := png.Decode(f)
 	bounds := img.Bounds()
@@ -55,7 +56,7 @@ func DrawAscii(v string) string {
 			temp := fmt.Sprintf("%.0f", gray*float64(len(base)+1)/255)
 			index, _ := strconv.Atoi(temp)
 			if index >= len(base) {
-				ascii += "."
+				ascii += " "
 				//fmt.Print(" ")
 			} else {
 				ascii += string(base[index])
