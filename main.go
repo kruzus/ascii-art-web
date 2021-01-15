@@ -41,7 +41,7 @@ func main() {
 }
 func DrawAscii(v string) string {
 	base := "0ND8OZ$7I?+=~:,.."
-	//	base := "$"
+	//base := "$"
 	f, _ := os.Open(v)
 	img, _ := png.Decode(f)
 	bounds := img.Bounds()
