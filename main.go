@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"html/template"
 	"image/png"
@@ -10,6 +11,7 @@ import (
 	"os/exec"
 	"runtime"
 	"strconv"
+	"strings"
 )
 
 var tmpl = template.Must(template.New("tmpl").ParseFiles("index.html"))
@@ -29,13 +31,18 @@ func main() {
 		if r.Form["machaine"][0] == "rickroll.png" {
 			openbrowser("https://www.youtube.com/watch?v=xvFZjo5PgG0&ab_channel=RickRoll")
 		}
+		//	fmt.Fprintln("<script>alert('you have been pwned')</script>")
+		//	//	fmt.Fprintf(w, DrawAscii("Capture.jpg"))
 
-		//	fmt.Fprintf(w, DrawAscii("Capture.jpg"))
 		fmt.Fprintln(w, DrawAscii(img))
 		//fmt.Println(DrawAscii(img))
 		//	fmt.Fprintln(w, "ok")
 	})
-
+	http.HandleFunc("/Ascii", func(w http.ResponseWriter, r *http.Request) {
+		r.ParseForm()
+		ascii := r.Form["machaine"][0]
+		fmt.Fprintln(w, Ascii(ascii))
+	})
 	log.Fatal(http.ListenAndServe(":9000", nil))
 
 }
@@ -58,6 +65,7 @@ func DrawAscii(v string) string {
 			index, _ := strconv.Atoi(temp)
 			if index >= len(base) {
 				ascii += "."
+				ascii += ""
 				//fmt.Print(" ")
 			} else {
 				ascii += string(base[index])
@@ -83,4 +91,52 @@ func openbrowser(zz string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+//Ascii pokok
+func Ascii(str string) string {
+
+	file, _ := os.Open("standard.txt")
+	fileVal := scanFile(file)
+
+	k := ""
+
+	for i := 1; i <= 8; i++ {
+
+		for _, arg := range str {
+			indexBase := int(rune(arg)-32) * 9
+			if indexBase > 856 {
+				k = "index out of range"
+				return k
+			} else if indexBase < 856 {
+
+				k += fileVal[indexBase+i]
+				k = strings.Replace(k, " ", "&nbsp;", -1)
+			}
+
+		}
+		k += "<br>"
+
+	}
+
+	//fmt.Print(k)
+	return k
+
+}
+
+func scanFile(arg *os.File) []string {
+
+	var fileValue []string
+
+	scanner := bufio.NewScanner(arg)
+
+	for scanner.Scan() {
+
+		lines := scanner.Text()
+
+		fileValue = append(fileValue, lines)
+
+	}
+
+	return fileValue
 }

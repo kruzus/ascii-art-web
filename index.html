@@ -22,7 +22,20 @@
             method: "GET",
 			data:{machaine:$("#image").val(),mode:"Image"}, 
             success: function(data) {
-              $("#Reponce2").html(data);
+              $("#Reponcces2").html(data);
+			  
+            		},
+					});
+				});
+            });
+			$(document).ready(function() {
+        $("#Ascii").on('click', function() {
+          $.ajax({	  
+            url: "http://localhost:9000/Ascii",
+            method: "GET",
+			data:{machaine:$("#ascii").val(),mode:"ascii"}, 
+            success: function(data) {
+              $("#Reponse1").html(data);
 			  
             		},
 					});
@@ -35,11 +48,18 @@
 	
 		<a >ex1: image</a>
 		<br>
-		<input TYPE="text" name="image" id="image" value = "rickroll.png"> 
+		<input TYPE="text" name="image" id="image" value = "ok.png"> 
 		<button id="Image" type="submit">image</button>
 		
-		<blockquote class="center" id="Reponce2"></blockquote>
+		<blockquote class="center" id="Reponcces2"></blockquote>
 
+
+		<a >ex2: Ascii</a>
+		<br>
+		<input TYPE="text" name="ascii" id="ascii" value = ""> 
+		<button id="Ascii" type="submit">ascii</button>
+		
+		<blockquote class="center" id="Reponse1"></blockquote>
 	
         <br>
 </body>
