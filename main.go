@@ -8,29 +8,31 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"os/exec"
-	"runtime"
 	"strconv"
 	"strings"
 )
 
-var tmpl = template.Must(template.New("tmpl").ParseFiles("index.html"))
+var tmpl = template.Must(template.New("tmpl").ParseFiles("./static/index.html"))
 var templatesDir = os.Getenv("TEMPLATES_DIR")
+
+const fileMAXsize = 10000 //10MB
 
 func main() {
 	fmt.Println("==>  * localhost:9000 *  <==")
-	openbrowser("http://localhost:9000")
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if err := tmpl.ExecuteTemplate(w, "index.html", nil); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			log.Panicln("LOL")
 		}
 	})
 	http.HandleFunc("/Image", func(w http.ResponseWriter, r *http.Request) {
 		r.ParseForm()
 		img := r.Form["machaine"][0]
-		if r.Form["machaine"][0] == "rickroll.png" {
-			openbrowser("https://www.youtube.com/watch?v=xvFZjo5PgG0&ab_channel=RickRoll")
-		}
+
+		//necessary?
+		// if r.Form["machaine"][0] == "rickroll.png" {
+		// 	openbrowser("https://www.youtube.com/watch?v=xvFZjo5PgG0&ab_channel=RickRoll")
+		// }
+
 		//	fmt.Fprintln("<script>alert('you have been pwned')</script>")
 		//	//	fmt.Fprintf(w, DrawAscii("Capture.jpg"))
 
@@ -74,23 +76,13 @@ func DrawAscii(v string) string {
 
 		}
 
-		ascii += "<br>\n"
+		ascii += "\n"
 
 	}
 	f.Close()
 
 	//	fmt.Println(ascii)
 	return ascii
-}
-func openbrowser(zz string) {
-	var err error
-	switch runtime.GOOS {
-	case "windows":
-		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", zz).Start()
-	}
-	if err != nil {
-		log.Fatal(err)
-	}
 }
 
 //Ascii pokok
@@ -115,7 +107,7 @@ func Ascii(str string) string {
 			}
 
 		}
-		k += "<br>"
+		k += "\n"
 
 	}
 

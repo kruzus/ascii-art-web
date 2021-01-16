@@ -1,2 +1,3 @@
-go run main.go
-on site award.png or boom.png
+# Image to Ascii
+
+ADD STUFF

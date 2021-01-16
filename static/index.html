@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#Image").on("click", function () {
+          $.ajax({
+            url: "http://localhost:9000/Image",
+            method: "GET",
+            data: {
+              machaine: $("#image").val(),
+              mode: "Image",
+            },
+            success: function (data) {
+              //   $("output").html(data);
+            },
+          });
+        });
+      });
+      function getfileVal() {
+        const formVal = document.getElementById("image").value;
+        console.log(formVal);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Upload an image to convert to ascii!</h1>
+
+    <input type="text" name="image" id="image" />
+    <!-- <input type="file" name="image" id="image"> -->
+
+    <button id="Image" onclick="getfileVal()" type="submit">image</button>
+
+    <!-- <input type="file" name="image" id="image"/>
+	<input type="submit"  id="Image" value="upload" />
+ 
+  <blockquote class="center" id="output"></blockquote>  -->
+  </body>
+</html>
